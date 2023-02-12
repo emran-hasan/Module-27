@@ -3,26 +3,37 @@ document.getElementById('btn-withdraw').addEventListener('click', function(){
     const withdrawAmountString = withdrawField.value;
     const newWithdrawTotal = parseFloat(withdrawAmountString);
     
+    withdrawField.value = '';
+
+    if(isNaN(newWithdrawTotal) && newWithdrawTotal !== 'string'){
+        alert('Input valid amount!')
+        return;
+    }
+    
     const previousWithdraw = document.getElementById('withdraw-total');
     const previousWithdrawString = previousWithdraw.innerText;
     const previousWithdrawTotal = parseFloat(previousWithdrawString);
 
-    const currentWithdrawTotal = previousWithdrawTotal + newWithdrawTotal;
-    previousWithdraw.innerText = currentWithdrawTotal;
-    console.log(currentWithdrawTotal);
-
+    
+    
     const previousWithdrawBalance = document.getElementById('balance-total');
     const previousBalanceElementString = previousWithdrawBalance.innerText;
     const previousBalanceTotalElement = parseFloat(previousBalanceElementString);
-    console.log(previousBalanceTotalElement);
-
 
     
-    const newBalanceTotal = previousBalanceTotalElement - currentWithdrawTotal ;
-    previousWithdrawBalance.innerText = newBalanceTotal;
-    console.log(newBalanceTotal);
+    if(newWithdrawTotal > previousBalanceTotalElement ){
+        alert('Baper bank e taka nei!!');
+        return;
+    }
+    
+    const currentWithdrawTotal = previousWithdrawTotal + newWithdrawTotal;
+    previousWithdraw.innerText = currentWithdrawTotal;
 
-    withdrawField.value = '';
+    
+    const newBalanceTotal = previousBalanceTotalElement - newWithdrawTotal ;
+    previousWithdrawBalance.innerText = newBalanceTotal;
+    
+
 
 
 })
